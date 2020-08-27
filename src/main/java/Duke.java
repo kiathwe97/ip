@@ -1,12 +1,12 @@
 import java.util.Scanner;
 
 public class Duke {
-    private static String [] commandList = new String[100];
-    private static int numberOfCommands = 0;
+    private static Task [] taskList = new Task[100];
     public static void printCommandList(){
         int i;
-        for (i=0; i< numberOfCommands; i++){
-            System.out.println((i+1) + ". " + commandList[i]);
+        for (i=0; i< Task.getNumberOfTasks(); i++){
+            if (taskList[i].isCompleted()) System.out.println((i+1) + ". " +"[DONE] " +taskList[i].getTaskName());
+            else System.out.println((i+1) + ". " +"[NOT DONE] " +taskList[i].getTaskName());
         }
     }
 
@@ -28,9 +28,13 @@ public class Duke {
                 //print the list
                 printCommandList();
             }
+            else if (command.toLowerCase().matches("done [1-9]([0-9]{2})?")){
+                int taskNumber = Integer.parseInt(command.split(" ")[1]);
+                taskList[taskNumber-1].setCompleted(true);
+                System.out.println("You have completed: " + taskList[taskNumber-1].getTaskName());
+            }
             else{
-                commandList[numberOfCommands] = command;
-                numberOfCommands++;
+                taskList[Task.getNumberOfTasks()] = new Task(command);
                 System.out.println("Added: " + command);
 
             }
