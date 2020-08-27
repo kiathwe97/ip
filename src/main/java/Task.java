@@ -1,7 +1,7 @@
 public class Task {
 
     private String taskName;
-    private boolean completed;
+    private boolean completed; //MIGHT NEED TO CHANGE THIS
     private static int numberOfTasks = 0;
 
     public Task(String taskName){

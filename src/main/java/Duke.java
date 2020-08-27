@@ -5,8 +5,12 @@ public class Duke {
     public static void printCommandList(){
         int i;
         for (i=0; i< Task.getNumberOfTasks(); i++){
-            if (taskList[i].isCompleted()) System.out.println((i+1) + ". " +"[DONE] " +taskList[i].getTaskName());
-            else System.out.println((i+1) + ". " +"[NOT DONE] " +taskList[i].getTaskName());
+            if (taskList[i].isCompleted()) {
+                System.out.println((i+1) + ". " +"[DONE] " +taskList[i].getTaskName());
+            }
+            else{
+                System.out.println((i+1) + ". " +"[NOT DONE] " +taskList[i].getTaskName());
+            }
         }
     }
 
@@ -18,8 +22,8 @@ public class Duke {
                 + "| |_| | |_| |   <  __/\n"
                 + "|____/ \\__,_|_|\\_\\___|\n"; */
 
-        String message = "Hello! I'm Duke\nWhat can I do for you?";
-        System.out.println(message);
+
+        System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
 
@@ -30,8 +34,14 @@ public class Duke {
             }
             else if (command.toLowerCase().matches("done [1-9]([0-9]{2})?")){
                 int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                taskList[taskNumber-1].setCompleted(true);
-                System.out.println("You have completed: " + taskList[taskNumber-1].getTaskName());
+                if (taskList[taskNumber-1] != null) {
+                    taskList[taskNumber - 1].setCompleted(true);
+                    System.out.println("You have completed: " + taskList[taskNumber-1].getTaskName());
+                }
+                else{
+                    System.out.println("Index out of bounds.");
+                }
+
             }
             else{
                 taskList[Task.getNumberOfTasks()] = new Task(command);
