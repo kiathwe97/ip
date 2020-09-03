@@ -7,8 +7,7 @@ public class Duke {
         for (i=0; i< Task.getNumberOfTasks(); i++){
             if (taskList[i].isCompleted()) {
                 System.out.println((i+1) + ". " +taskList[i]); // use a tostring method
-            }
-            else{
+            } else{
                 System.out.println((i+1) + ". " +taskList[i]);
             }
         }
@@ -31,40 +30,36 @@ public class Duke {
             if (command.toLowerCase().equals("list")){ // calls for list
                 //print the list
                 printCommandList();
-            }
-            else if (command.toLowerCase().matches("done [1-9]([0-9]{2})?")){ // marks for done
+            } else if (command.toLowerCase().matches("done [1-9]([0-9]{2})?")){ // marks for done
                 int taskNumber = Integer.parseInt(command.split(" ")[1]);
                 if (taskList[taskNumber-1] != null) {
                     taskList[taskNumber - 1].setCompleted(true);
                     System.out.println("You have completed: " + taskList[taskNumber-1].getTaskName());
-                }
-                else{
+                } else{
                     System.out.println("Index out of bounds.");
                 }
 
-            }
-            else{ // for new task
+            } else{ // for new task
 
                 if (command.toLowerCase().matches("^deadline .+$")){ // if is deadline
                     String deadlineWithDueDateString = command.substring("deadline ".length());
                     String [] deadlineAndDueDateArray = deadlineWithDueDateString.split("/");
-                    taskList[Task.getNumberOfTasks()] = new Deadline(deadlineAndDueDateArray[0].trim(), deadlineAndDueDateArray[1].substring(3).trim());
+                    String trimmedDeadline = deadlineAndDueDateArray[0].trim();
+                    String trimmedDueDate = deadlineAndDueDateArray[1].substring(3).trim();
+                    taskList[Task.getNumberOfTasks()] = new Deadline(trimmedDeadline, trimmedDueDate);
                     // this part maybe can rewrite ah
 
-                }
-
-                else if (command.toLowerCase().matches("^todo .+$")){
+                } else if (command.toLowerCase().matches("^todo .+$")){
                     String toDo = command.substring("todo ".length());
                     taskList[Task.getNumberOfTasks()] = new ToDo(toDo);
-                }
-
-                else if (command.toLowerCase().matches("^event .+$")){
+                } else if (command.toLowerCase().matches("^event .+$")){
                     // need to write this
                     String eventWithEventDateString = command.substring("event ".length());
                     String [] eventAndEventDateArray = eventWithEventDateString.split("/");
-                    taskList[Task.getNumberOfTasks()] = new Event(eventAndEventDateArray[0].trim(), eventAndEventDateArray[1].substring(3).trim());
-                }
-                else{
+                    String trimmedEvent = eventAndEventDateArray[0].trim();
+                    String trimmedEventDate = eventAndEventDateArray[1].substring(3).trim();
+                    taskList[Task.getNumberOfTasks()] = new Event(trimmedEvent, trimmedEventDate);
+                } else{
                     System.out.println("I don't understand, please try again.");
                 }
 

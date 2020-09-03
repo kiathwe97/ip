@@ -34,8 +34,7 @@ public class Task {
     public String toString(){
         if (completed == true){
             return "[DONE] " + this.taskName;
-        }
-        else{
+        } else{
             return "[NOT DONE] " + this.taskName ;
         }
 
