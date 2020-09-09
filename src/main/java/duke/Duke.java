@@ -1,7 +1,10 @@
+package duke;
+
 import java.util.Scanner;
+import duke.task.*;
 
 public class Duke {
-    private static Task [] taskList = new Task[100];
+    private static Task[] taskList = new Task[100];
     private enum MainCommand{
         LIST, BYE, TODO, EVENT, DEADLINE, DONE
     }

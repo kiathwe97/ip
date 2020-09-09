@@ -1,3 +1,5 @@
+package duke.task;
+
 //import java.util.GregorianCalendar;
 public class Deadline extends Task{
     //private GregorianCalendar dueDate;
@@ -20,7 +22,7 @@ public class Deadline extends Task{
     }
 
     /*
-    public Deadline(String deadlineName, int year, int month, int date, int hour, int minute){
+    public duke.task.Deadline(String deadlineName, int year, int month, int date, int hour, int minute){
         super(deadlineName);
         GregorianCalendar dueDate = new GregorianCalendar(year, month, date, hour, minute);
         this.dueDate = dueDate;
