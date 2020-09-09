@@ -4,7 +4,10 @@ public class Task {
     private boolean completed; //MIGHT NEED TO CHANGE THIS
     private static int numberOfTasks = 0;
 
-    public Task(String taskName){
+    public Task(String taskName) throws DukeException{
+        if (taskName.isBlank()){
+            throw new DukeException();
+        }
         this.taskName = taskName;
         this.completed = false;
         numberOfTasks++;
@@ -33,9 +36,9 @@ public class Task {
     //should write a tostring method here
     public String toString(){
         if (completed == true){
-            return "[DONE] " + this.taskName;
+            return "[\u2713] " + this.taskName;
         } else{
-            return "[NOT DONE] " + this.taskName ;
+            return "[\u2718] " + this.taskName ;
         }
 
     }

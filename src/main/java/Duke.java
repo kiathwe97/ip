@@ -2,6 +2,9 @@ import java.util.Scanner;
 
 public class Duke {
     private static Task [] taskList = new Task[100];
+    private enum MainCommand{
+        LIST, BYE, TODO, EVENT, DEADLINE, DONE
+    }
     public static void printCommandList(){
         int i;
         for (i=0; i< Task.getNumberOfTasks(); i++){
@@ -12,6 +15,26 @@ public class Duke {
             }
         }
     }
+
+    public static MainCommand findMainCommand(String command){
+        if (command.toLowerCase().matches("^deadline.*$")) {
+            return MainCommand.DEADLINE;
+        } else if (command.toLowerCase().matches("^todo.*$")){
+            return MainCommand.TODO;
+        } else if (command.toLowerCase().matches("^event.*$")){
+            return MainCommand.EVENT;
+        } else if (command.equals("bye")){
+            return MainCommand.BYE;
+        } else if (command.toLowerCase().equals("list")) {
+            return MainCommand.LIST;
+        } else if (command.toLowerCase().matches("done [1-9]([0-9]{2})?")) {
+            return MainCommand.DONE;
+        } else {
+            return null;
+        }
+    }
+
+    ////// COULD WRITE A FUNCTION TO EXTRACT THE COMMAND ///////
 
     public static void main(String[] args) {
 
@@ -25,12 +48,12 @@ public class Duke {
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
         Scanner sc = new Scanner(System.in);
         String command = sc.nextLine();
-
-        while (!command.equals("bye")){
-            if (command.toLowerCase().equals("list")){ // calls for list
+        MainCommand mainCommand = findMainCommand(command);
+        while (mainCommand != MainCommand.BYE){
+            if (mainCommand == MainCommand.LIST){ // calls for list
                 //print the list
                 printCommandList();
-            } else if (command.toLowerCase().matches("done [1-9]([0-9]{2})?")){ // marks for done
+            } else if (mainCommand == MainCommand.DONE){ // marks for done
                 int taskNumber = Integer.parseInt(command.split(" ")[1]);
                 if (taskList[taskNumber-1] != null) {
                     taskList[taskNumber - 1].setCompleted(true);
@@ -41,24 +64,49 @@ public class Duke {
 
             } else{ // for new task
 
-                if (command.toLowerCase().matches("^deadline .+$")){ // if is deadline
-                    String deadlineWithDueDateString = command.substring("deadline ".length());
+                if (mainCommand == MainCommand.DEADLINE){ // SHOULD CHANGE THE REGEX
+                    String deadlineWithDueDateString = command.substring("deadline".length()).trim();
                     String [] deadlineAndDueDateArray = deadlineWithDueDateString.split("/");
                     String trimmedDeadline = deadlineAndDueDateArray[0].trim();
-                    String trimmedDueDate = deadlineAndDueDateArray[1].substring(3).trim();
-                    taskList[Task.getNumberOfTasks()] = new Deadline(trimmedDeadline, trimmedDueDate);
+                    String trimmedDueDate;
+                    if (deadlineAndDueDateArray.length == 2) {
+                        trimmedDueDate = deadlineAndDueDateArray[1].substring(3).trim();
+                    }
+                    else{
+                        trimmedDueDate = "";
+                    }
+                    try {
+                        taskList[Task.getNumberOfTasks()] = new Deadline(trimmedDeadline, trimmedDueDate);
+                    }catch (DukeException e){
+                        System.out.println("Name cannot be empty");
+                    }
                     // this part maybe can rewrite ah
 
-                } else if (command.toLowerCase().matches("^todo .+$")){
-                    String toDo = command.substring("todo ".length());
-                    taskList[Task.getNumberOfTasks()] = new ToDo(toDo);
-                } else if (command.toLowerCase().matches("^event .+$")){
+                } else if (mainCommand == MainCommand.TODO){ // SHOULD CHANGE THE REGEX
+                    String toDo = command.substring("todo".length()).trim();
+                    try {
+                        taskList[Task.getNumberOfTasks()] = new ToDo(toDo);
+                    }catch (DukeException e){
+                        System.out.println("Name cannot be empty");
+                    }
+                } else if (mainCommand == MainCommand.EVENT){ //SHOULD CHANGE THE REGEX
                     // need to write this
-                    String eventWithEventDateString = command.substring("event ".length());
+                    String eventWithEventDateString = command.substring("event".length()).trim();
                     String [] eventAndEventDateArray = eventWithEventDateString.split("/");
                     String trimmedEvent = eventAndEventDateArray[0].trim();
-                    String trimmedEventDate = eventAndEventDateArray[1].substring(3).trim();
-                    taskList[Task.getNumberOfTasks()] = new Event(trimmedEvent, trimmedEventDate);
+                    String trimmedEventDate;
+                    if (eventAndEventDateArray.length == 2) {
+                        trimmedEventDate = eventAndEventDateArray[1].substring(3).trim();
+                    }
+                    else{
+                        trimmedEventDate = "";
+                    }
+                    try{
+                        taskList[Task.getNumberOfTasks()] = new Event(trimmedEvent, trimmedEventDate);
+                    } catch (DukeException e){
+                        System.out.println("Name cannot be empty");
+                    }
+
                 } else{
                     System.out.println("I don't understand, please try again.");
                 }
@@ -67,6 +115,7 @@ public class Duke {
 
             }
             command = sc.nextLine();
+            mainCommand = findMainCommand(command);
         }
         System.out.println("Bye! Hope to see you again soon!");
     }

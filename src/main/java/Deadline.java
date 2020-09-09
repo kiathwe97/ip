@@ -2,7 +2,7 @@
 public class Deadline extends Task{
     //private GregorianCalendar dueDate;
     private String dueDate;
-    public Deadline(String deadlineName, String dueDate){
+    public Deadline(String deadlineName, String dueDate) throws DukeException{
         super(deadlineName);
         this.dueDate = dueDate;
     }
