@@ -1,14 +1,21 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import duke.task.*;
 
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<Task>();
     private enum MainCommand{
-        LIST, BYE, TODO, EVENT, DEADLINE, DONE
+        LIST, BYE, TODO, EVENT, DEADLINE, DONE, DELETE
     }
+
+    public static void deleteTask(int index){
+        Task removedTask = taskList.remove(index-1);
+        System.out.println("Noted. I've removed this task:\n" + removedTask.toString() +"\nNow you have "+ taskList.size() + " tasks in the list.");
+    }
+
     public static void printCommandList(){
         int i;
         for (i=0; i< Task.getNumberOfTasks(); i++){
@@ -33,6 +40,8 @@ public class Duke {
             return MainCommand.LIST;
         } else if (command.toLowerCase().matches("done [1-9]([0-9]{2})?")) {
             return MainCommand.DONE;
+        } else if (command.toLowerCase().matches("delete [1-9]([0-9]{2})?")){
+            return MainCommand.DELETE;
         } else {
             return null;
         }
@@ -66,6 +75,15 @@ public class Duke {
                     System.out.println("Index out of bounds.");
                 }
 
+            } else if (mainCommand == MainCommand.DELETE){
+                try {
+                    int index = Integer.parseInt(command.split(" ")[1]);
+                    deleteTask(index);
+                } catch (InputMismatchException e){
+                    System.out.println("Invalid Index");
+                } catch (IndexOutOfBoundsException e){
+                    System.out.println("Maximum Index is: " + taskList.size());
+                }
             } else{ // for new task
 
                 if (mainCommand == MainCommand.DEADLINE){ // SHOULD CHANGE THE REGEX
