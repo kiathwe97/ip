@@ -1,20 +1,21 @@
 package duke;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import duke.task.*;
 
 public class Duke {
-    private static Task[] taskList = new Task[100];
+    private static ArrayList<Task> taskList = new ArrayList<Task>();
     private enum MainCommand{
         LIST, BYE, TODO, EVENT, DEADLINE, DONE
     }
     public static void printCommandList(){
         int i;
         for (i=0; i< Task.getNumberOfTasks(); i++){
-            if (taskList[i].isCompleted()) {
-                System.out.println((i+1) + ". " +taskList[i]); // use a tostring method
+            if (taskList.get(i).isCompleted()) {
+                System.out.println((i+1) + ". " +taskList.get(i)); // use a tostring method
             } else{
-                System.out.println((i+1) + ". " +taskList[i]);
+                System.out.println((i+1) + ". " +taskList.get(i));
             }
         }
     }
@@ -58,9 +59,9 @@ public class Duke {
                 printCommandList();
             } else if (mainCommand == MainCommand.DONE){ // marks for done
                 int taskNumber = Integer.parseInt(command.split(" ")[1]);
-                if (taskList[taskNumber-1] != null) {
-                    taskList[taskNumber - 1].setCompleted(true);
-                    System.out.println("You have completed: " + taskList[taskNumber-1].getTaskName());
+                if (taskList.get(taskNumber-1) != null) {
+                    taskList.get(taskNumber-1).setCompleted(true);
+                    System.out.println("You have completed: " + taskList.get(taskNumber-1).getTaskName());
                 } else{
                     System.out.println("Index out of bounds.");
                 }
@@ -79,7 +80,7 @@ public class Duke {
                         trimmedDueDate = "";
                     }
                     try {
-                        taskList[Task.getNumberOfTasks()] = new Deadline(trimmedDeadline, trimmedDueDate);
+                        taskList.add(new Deadline(trimmedDeadline, trimmedDueDate));
                     }catch (DukeException e){
                         System.out.println("Name cannot be empty");
                     }
@@ -88,7 +89,7 @@ public class Duke {
                 } else if (mainCommand == MainCommand.TODO){ // SHOULD CHANGE THE REGEX
                     String toDo = command.substring("todo".length()).trim();
                     try {
-                        taskList[Task.getNumberOfTasks()] = new ToDo(toDo);
+                        taskList.add(new ToDo(toDo));
                     }catch (DukeException e){
                         System.out.println("Name cannot be empty");
                     }
@@ -105,7 +106,7 @@ public class Duke {
                         trimmedEventDate = "";
                     }
                     try{
-                        taskList[Task.getNumberOfTasks()] = new Event(trimmedEvent, trimmedEventDate);
+                        taskList.add(new Event(trimmedEvent, trimmedEventDate));
                     } catch (DukeException e){
                         System.out.println("Name cannot be empty");
                     }
