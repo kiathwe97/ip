@@ -77,7 +77,7 @@ public class Duke {
 
     public static void printCommandList(){
         int i;
-        for (i=0; i< Task.getNumberOfTasks(); i++){
+        for (i=0; i< taskList.size(); i++){
             if (taskList.get(i).isCompleted()) {
                 System.out.println((i+1) + ". " +taskList.get(i)); // use a tostring method
             } else{
@@ -188,7 +188,7 @@ public class Duke {
                     System.out.println("I don't understand, please try again.");
                 }
 
-                System.out.println("Now you have " + Task.getNumberOfTasks()+ " tasks in the list.");
+                System.out.println("Now you have " + taskList.size()+ " tasks in the list.");
 
             }
             command = sc.nextLine();

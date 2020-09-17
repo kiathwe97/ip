@@ -4,7 +4,7 @@ public abstract class Task {
 
     private String taskName;
     private boolean completed; //MIGHT NEED TO CHANGE THIS
-    private static int numberOfTasks = 0;
+
 
     public Task(String taskName) throws DukeException{
         if (taskName.isBlank()){
@@ -12,7 +12,6 @@ public abstract class Task {
         }
         this.taskName = taskName;
         this.completed = false;
-        numberOfTasks++;
     }
 
     public String getTaskName() {
@@ -31,9 +30,6 @@ public abstract class Task {
         this.completed = completed;
     }
 
-    public static int getNumberOfTasks() {
-        return numberOfTasks;
-    }
 
     //should write a tostring method here
     public String toString(){
