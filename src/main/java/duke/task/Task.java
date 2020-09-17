@@ -1,6 +1,6 @@
 package duke.task;
 
-public class Task {
+public abstract class Task {
 
     private String taskName;
     private boolean completed; //MIGHT NEED TO CHANGE THIS
@@ -43,5 +43,42 @@ public class Task {
             return "[\u2718] " + this.taskName ;
         }
 
+    }
+
+    public abstract String toSaveFormat();
+    public static Task fromSaveFormatString(String saveFormatString){
+        String [] attributeList = saveFormatString.split("\\|");
+        Task newTask= null;
+        if (attributeList[0].equals("T")){
+            try {
+                newTask = new ToDo(attributeList[2]);
+            } catch (DukeException e){
+
+            }
+        }
+        else if (attributeList[0].equals("D")){
+            try{
+                newTask = new Deadline(attributeList[2], attributeList[3]);
+
+            } catch (DukeException e){
+
+            }
+        }
+        else if (attributeList[0].equals("E")){
+            try{
+                newTask = new Event(attributeList[2], attributeList[3]);
+
+            } catch (DukeException e){
+
+            }
+        }
+
+        if (newTask != null){
+            if (attributeList[1].equals("1")){
+                newTask.setCompleted(true);
+            }
+        }
+
+        return newTask;
     }
 }

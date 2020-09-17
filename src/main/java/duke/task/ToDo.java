@@ -8,4 +8,17 @@ public class ToDo extends Task{
     public String toString(){
         return "[T] " + super.toString();
     }
+
+    public String toSaveFormat(){
+        int isCompletedInt;
+        if (this.isCompleted()){
+            isCompletedInt = 1;
+        }
+        else{
+            isCompletedInt = 0;
+        }
+        return "T|" + isCompletedInt+"|"+ this.getTaskName();
+    }
+
+
 }
