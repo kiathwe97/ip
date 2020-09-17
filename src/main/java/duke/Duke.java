@@ -1,5 +1,12 @@
 package duke;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -7,6 +14,58 @@ import duke.task.*;
 
 public class Duke {
     private static ArrayList<Task> taskList = new ArrayList<Task>();
+    private static void saveTasksIntoTxt(){
+        int numberOfTasks = taskList.size();
+
+        //open the existing file
+        String home = System.getProperty("user.home");
+        Path path = Paths.get(home, "Desktop", "IP", "ip", "data", "duke.txt");
+        boolean directoryExists = Files.exists(path);
+        if (!directoryExists){
+            try {
+                Files.createFile(path);
+            } catch (IOException e){
+                System.out.println("Not created");
+            }
+        }
+
+        try{
+            BufferedWriter writer = Files.newBufferedWriter(path);
+            for(int i = 0; i<numberOfTasks; i++){
+                writer.write(taskList.get(i).toSaveFormat());
+                if(!(i==numberOfTasks-1)){
+                    writer.newLine();
+                }
+            }
+            writer.close();
+        }catch (IOException e ){
+            System.out.println("Save not successful.");
+        }
+
+
+
+
+    }
+
+    private static void loadTasksFromTxt(){
+        String home = System.getProperty("user.home");
+        Path path = Paths.get(home, "Desktop", "IP", "ip", "data", "duke.txt");
+        boolean directoryExists = Files.exists(path);
+        if (directoryExists){
+            File dataFile = new File(path.toString()); // create a File for the given file path
+            try{
+                Scanner sc = new Scanner(dataFile);
+                while (sc.hasNext()) {
+                    taskList.add(Task.fromSaveFormatString(sc.nextLine()));
+                }
+            }catch (FileNotFoundException e){
+                System.out.println("No data file found, existing task list is empty.");
+            }
+
+        }
+    }
+
+
     private enum MainCommand{
         LIST, BYE, TODO, EVENT, DEADLINE, DONE, DELETE
     }
@@ -50,12 +109,8 @@ public class Duke {
     ////// COULD WRITE A FUNCTION TO EXTRACT THE COMMAND ///////
 
     public static void main(String[] args) {
+        loadTasksFromTxt();
 
-        /*String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n"; */
 
 
         System.out.println("Hello! I'm Duke\nWhat can I do for you?");
@@ -139,6 +194,7 @@ public class Duke {
             command = sc.nextLine();
             mainCommand = findMainCommand(command);
         }
+        saveTasksIntoTxt();
         System.out.println("Bye! Hope to see you again soon!");
     }
 }
