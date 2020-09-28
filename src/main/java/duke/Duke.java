@@ -37,7 +37,7 @@ public class Duke {
         while (mainCommand != MainCommand.BYE){
             if (mainCommand == MainCommand.LIST){ // calls for list
                 //print the list
-                ui.printTaskList(taskList);
+                ui.printTaskList(taskList.getTaskList());
             } else if (mainCommand == MainCommand.DONE){ // marks for done
                 Task completedTask = taskList.markTaskAsDone(command);
                 if (completedTask == null){
@@ -56,6 +56,10 @@ public class Duke {
                 } catch (IndexOutOfBoundsException e){
                     ui.indexOutOfBoundsMessage();
                 }
+            } else if (mainCommand == MainCommand.FIND){
+                String keyword = parser.obtainKeyword(command);
+                ui.printTaskList(taskList.findTasksContaining(keyword));
+
             } else{ // for new task
                 Task newTask = parser.obtainTask(command, mainCommand);
                 if (newTask == null){

@@ -21,7 +21,9 @@ public class Parser {
             return MainCommand.DONE;
         } else if (command.toLowerCase().matches("delete [1-9]([0-9]{2})?")){
             return MainCommand.DELETE;
-        } else {
+        } else if (command.toLowerCase().matches("find .*")){
+            return MainCommand.FIND;
+        }else {
             return null;
         }
     }
@@ -79,5 +81,8 @@ public class Parser {
 
     }
 
+    public String obtainKeyword(String command){
+        return command.replace("find", "").trim();
+    }
 
 }
