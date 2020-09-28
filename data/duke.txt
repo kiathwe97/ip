@@ -1,1 +1,2 @@
 D|0|study for test|tomorrow
+E|0|CS2113 lecture|Friday 18 September 2020 from 4pm to 6pm
