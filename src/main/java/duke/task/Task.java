@@ -1,11 +1,18 @@
 package duke.task;
 
+/**
+ * Corresponds to something that user has to do
+ */
 public abstract class Task {
 
     private String taskName;
     private boolean completed; //MIGHT NEED TO CHANGE THIS
 
-
+    /**
+     * Creates a Task object
+     * @param taskName name of the Task
+     * @throws DukeException if whitespace taskName specified
+     */
     public Task(String taskName) throws DukeException{
         if (taskName.isBlank()){
             throw new DukeException();
@@ -14,24 +21,35 @@ public abstract class Task {
         this.completed = false;
     }
 
+    /**
+     * Returns name of the Task
+     * @return name of the Task
+     */
     public String getTaskName() {
         return taskName;
     }
 
-    public void setTaskName(String taskName) {
-        this.taskName = taskName;
-    }
-
+    /**
+     * Returns true if Task is completed, false otherwise
+     * @return boolean denoting Task completion
+     */
     public boolean isCompleted() {
         return completed;
     }
 
+    /**
+     * Set completion status
+     * @param completed boolean denoting Task completion
+     */
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
 
-    //should write a tostring method here
+    /**
+     * Returns details of Task in human readable form
+     * @return details of Task in human readable form
+     */
     public String toString(){
         if (completed == true){
             return "[\u2713] " + this.taskName;
@@ -42,6 +60,12 @@ public abstract class Task {
     }
 
     public abstract String toSaveFormat();
+
+    /**
+     * Returns a Task object from string containing Task details in saved format
+     * @param saveFormatString containx Task details in saved format
+     * @return Task object
+     */
     public static Task fromSaveFormatString(String saveFormatString){
         String [] attributeList = saveFormatString.split("\\|");
         Task newTask= null;

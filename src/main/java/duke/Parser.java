@@ -1,11 +1,16 @@
 package duke;
 import duke.task.*;
 
+/**
+ * Class that helps with parsing strings
+ */
 public class Parser {
-    public Parser(){
 
-    }
-
+    /**
+     * returns the main command of the command specified by user
+     * @param command string specified by user
+     * @return main command of the command specified by user
+     */
     public MainCommand getMainCommand(String command){
         if (command.toLowerCase().matches("^deadline.*$")) {
             return MainCommand.DEADLINE;
@@ -28,6 +33,12 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns Task object based on what is specified by the user
+     * @param command string specified by user
+     * @param mainCommand main command of the string
+     * @return Task object
+     */
     public Task obtainTask(String command, MainCommand mainCommand){
         Task task = null;
         if (mainCommand == MainCommand.DEADLINE){ // SHOULD CHANGE THE REGEX

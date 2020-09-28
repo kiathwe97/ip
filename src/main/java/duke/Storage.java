@@ -8,24 +8,26 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Class that helps to read from and save to a data file
+ */
 public class Storage {
     private Path path;
     public Storage(Path path){
         this.path = path;
     }
 
+    /**
+     * Saves Tasks into .txt file
+     * @param taskList TaskList object
+     */
     public void saveTasksIntoTxt(TaskList taskList){
         int numberOfTasks = taskList.getTaskList().size();
 
         //open the existing file
-
-
-
-
 
 
         boolean directoryExists = Files.exists(path);
@@ -55,7 +57,10 @@ public class Storage {
 
     }
 
-
+    /**
+     * Returns an ArrayList of Task that are saved in .txt file
+     * @return ArrayList of Task
+     */
     public ArrayList<Task> loadTasksFromTxt(){
         ArrayList<Task> taskList = new ArrayList<Task>();
         boolean directoryExists = Files.exists(path);

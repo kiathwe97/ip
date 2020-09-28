@@ -1,27 +1,22 @@
 package duke;
-
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import duke.task.*;
 
-
+/**
+ * Main class of the program
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
     private Parser parser;
 
-
-
-
+    /**
+     * Function that runs the application
+     */
     public void run() {
         String home = System.getProperty("user.home");
         Path path = Paths.get(home, "Desktop", "IP", "ip", "data", "duke.txt");
@@ -81,6 +76,10 @@ public class Duke {
         storage.saveTasksIntoTxt(taskList);
     }
 
+    /**
+     * main function
+     * @param args
+     */
     public static void main(String args[]){
         new Duke().run();
     }
