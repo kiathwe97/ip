@@ -1,15 +1,17 @@
 package duke;
 import duke.task.Task;
 
+import java.util.ArrayList;
+
 public class Ui {
 
-    public void printTaskList(TaskList taskList){
+    public void printTaskList(ArrayList<Task> taskList){
         int i;
-        for (i=0; i< taskList.getTaskList().size(); i++){
-            if (taskList.getTaskList().get(i).isCompleted()) {
-                System.out.println((i+1) + ". " +taskList.getTaskList().get(i)); // use a tostring method
+        for (i=0; i< taskList.size(); i++){
+            if (taskList.get(i).isCompleted()) {
+                System.out.println((i+1) + ". " +taskList.get(i)); // use a tostring method
             } else{
-                System.out.println((i+1) + ". " +taskList.getTaskList().get(i));
+                System.out.println((i+1) + ". " +taskList.get(i));
             }
         }
     }
