@@ -18,8 +18,8 @@ public class Duke {
      * Function that runs the application
      */
     public void run() {
-        String home = System.getProperty("user.home");
-        Path path = Paths.get(home, "Desktop", "IP", "ip", "data", "duke.txt");
+        //String home = System.getProperty("user.home");
+        Path path = Paths.get("data","duke.txt");
         storage = new Storage(path);
         taskList = new TaskList(storage.loadTasksFromTxt());
         ui = new Ui();
