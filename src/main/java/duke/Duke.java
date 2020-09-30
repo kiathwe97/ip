@@ -19,7 +19,7 @@ public class Duke {
      */
     public void run() {
         //String home = System.getProperty("user.home");
-        Path path = Paths.get("data","duke.txt");
+        Path path = Paths.get("ip", "src", "main", "java", "duke", "data", "duke.txt");
         storage = new Storage(path);
         taskList = new TaskList(storage.loadTasksFromTxt());
         ui = new Ui();

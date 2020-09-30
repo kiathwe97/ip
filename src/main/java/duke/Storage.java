@@ -35,7 +35,7 @@ public class Storage {
             try {
                 Files.createFile(path);
             } catch (IOException e){
-                System.out.println("Not created");
+
             }
         }
 
