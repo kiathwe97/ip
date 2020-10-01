@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,9 +16,13 @@ import java.util.Scanner;
  * Class that helps to read from and save to a data file
  */
 public class Storage {
+    //private String folder;
+    private String fileName;
     private Path path;
-    public Storage(Path path){
-        this.path = path;
+    public Storage(String fileName){
+        //this.folder = folder;
+        this.fileName = fileName;
+        this.path = Paths.get(fileName);
     }
 
     /**
@@ -30,12 +35,12 @@ public class Storage {
         //open the existing file
 
 
-        boolean directoryExists = Files.exists(path);
+        boolean directoryExists = Files.exists(Paths.get(fileName));
         if (!directoryExists){
             try {
                 Files.createFile(path);
             } catch (IOException e){
-
+                System.out.println("File not created");
             }
         }
 
