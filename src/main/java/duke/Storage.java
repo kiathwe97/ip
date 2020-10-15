@@ -47,7 +47,8 @@ public class Storage {
         try{
             BufferedWriter writer = Files.newBufferedWriter(path);
             for(int i = 0; i < numberOfTasks; i++){
-                writer.write(taskList.getTaskList().get(i).toSaveFormat());
+                Task task = taskList.getTaskList().get(i);
+                writer.write(task.toSaveFormat());
                 if(!(i == numberOfTasks-1)){
                     writer.newLine();
                 }
