@@ -22,7 +22,7 @@ public class Event extends Task{
      * @return string containing the details of the Event for human interpretation
      */
     public String toString(){
-        return  "[E] " + super.toString()+ " (at: " + this.eventDate + ")";
+        return  "[E] " + super.toString() + " (at: " + this.eventDate + ")";
     }
 
     /**
@@ -37,6 +37,6 @@ public class Event extends Task{
         else{
             isCompletedInt = 0;
         }
-        return "E|" + isCompletedInt+"|"+ this.getTaskName()+"|"+ this.eventDate;
+        return "E|" + isCompletedInt + "|" + this.getTaskName() + "|" + this.eventDate;
     }
 }

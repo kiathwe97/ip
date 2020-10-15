@@ -1,5 +1,9 @@
 package duke;
-import duke.task.*;
+import duke.task.Task;
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.ToDo;
+import duke.task.DukeException;
 
 /**
  * Class that helps with parsing strings
@@ -55,18 +59,14 @@ public class Parser {
             try {
                 task = new Deadline(trimmedDeadline, trimmedDueDate);
             }catch (DukeException e){
-
-
+                return null;
             }
-            // this part maybe can rewrite ah
-
         } else if (mainCommand == MainCommand.TODO){ // SHOULD CHANGE THE REGEX
             String toDo = command.substring("todo".length()).trim();
             try {
                 task = new ToDo(toDo);
             }catch (DukeException e){
-
-
+                return null;
             }
         } else if (mainCommand == MainCommand.EVENT){ //SHOULD CHANGE THE REGEX
             // need to write this
@@ -83,7 +83,7 @@ public class Parser {
             try{
                 task = new Event(trimmedEvent, trimmedEventDate);
             } catch (DukeException e){
-
+                return null;
             }
 
         }

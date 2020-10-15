@@ -40,7 +40,7 @@ public class TaskList {
      * @return Task object
      */
     public Task deleteTask(int index){
-        Task removedTask = taskList.remove(index-1);
+        Task removedTask = taskList.remove(index - 1);
         return removedTask;
     }
 
@@ -51,9 +51,9 @@ public class TaskList {
      */
     public Task markTaskAsDone(String command){
         int taskNumber = Integer.parseInt(command.split(" ")[1]);
-        if (taskList.get(taskNumber-1) != null) {
-            taskList.get(taskNumber-1).setCompleted(true);
-            return taskList.get(taskNumber-1);
+        if (taskList.get(taskNumber - 1) != null) {
+            taskList.get(taskNumber - 1).setCompleted(true);
+            return taskList.get(taskNumber - 1);
         } else{
             return null;
         }

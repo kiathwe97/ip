@@ -33,7 +33,7 @@ public class ToDo extends Task{
         else{
             isCompletedInt = 0;
         }
-        return "T|" + isCompletedInt+"|"+ this.getTaskName();
+        return "T|" + isCompletedInt + "|" + this.getTaskName();
     }
 
 

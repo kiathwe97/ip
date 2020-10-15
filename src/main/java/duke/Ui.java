@@ -7,12 +7,16 @@ public class Ui {
 
     public void printTaskList(ArrayList<Task> taskList){
         int i;
-        for (i=0; i< taskList.size(); i++){
+
+        for (i = 0; i < taskList.size(); i++){
             if (taskList.get(i).isCompleted()) {
-                System.out.println((i+1) + ". " +taskList.get(i)); // use a tostring method
+                System.out.println((i+1) + ". " + taskList.get(i)); // use a tostring method
             } else{
-                System.out.println((i+1) + ". " +taskList.get(i));
+                System.out.println((i+1) + ". " + taskList.get(i));
             }
+        }
+        if (i == 0){
+            System.out.println("You ain't got nuts to do right now homie.");
         }
     }
 
@@ -46,5 +50,9 @@ public class Ui {
 
     public void nameEmptyMessage(){
         System.out.println("Name cannot be empty.");
+    }
+
+    public void unknownCommandMessage(){
+        System.out.println("Sorry I don't understand that homie.");
     }
 }

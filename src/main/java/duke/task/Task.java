@@ -6,7 +6,7 @@ package duke.task;
 public abstract class Task {
 
     private String taskName;
-    private boolean completed; //MIGHT NEED TO CHANGE THIS
+    private boolean isCompleted;
 
     /**
      * Creates a Task object
@@ -18,7 +18,7 @@ public abstract class Task {
             throw new DukeException();
         }
         this.taskName = taskName;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -34,7 +34,7 @@ public abstract class Task {
      * @return boolean denoting Task completion
      */
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
 
     /**
@@ -42,7 +42,7 @@ public abstract class Task {
      * @param completed boolean denoting Task completion
      */
     public void setCompleted(boolean completed) {
-        this.completed = completed;
+        this.isCompleted = completed;
     }
 
 
@@ -51,7 +51,7 @@ public abstract class Task {
      * @return details of Task in human readable form
      */
     public String toString(){
-        if (completed == true){
+        if (isCompleted == true){
             return "[\u2713] " + this.taskName;
         } else{
             return "[\u2718] " + this.taskName ;
@@ -68,12 +68,12 @@ public abstract class Task {
      */
     public static Task fromSaveFormatString(String saveFormatString){
         String [] attributeList = saveFormatString.split("\\|");
-        Task newTask= null;
+        Task newTask = null;
         if (attributeList[0].equals("T")){
             try {
                 newTask = new ToDo(attributeList[2]);
             } catch (DukeException e){
-
+                return null;
             }
         }
         else if (attributeList[0].equals("D")){
@@ -81,7 +81,7 @@ public abstract class Task {
                 newTask = new Deadline(attributeList[2], attributeList[3]);
 
             } catch (DukeException e){
-
+                return null;
             }
         }
         else if (attributeList[0].equals("E")){
@@ -89,7 +89,7 @@ public abstract class Task {
                 newTask = new Event(attributeList[2], attributeList[3]);
 
             } catch (DukeException e){
-
+                return null;
             }
         }
 

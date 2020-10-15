@@ -22,7 +22,7 @@ public class Deadline extends Task{
      * @return string containing the details of the Deadline for human interpretation
      */
     public String toString(){
-        return "[D] " + super.toString()+ " (by: " + this.dueDate + ")";
+        return "[D] " + super.toString() + " (by: " + this.dueDate + ")";
     }
 
     /**
@@ -37,6 +37,6 @@ public class Deadline extends Task{
         else{
             isCompletedInt = 0;
         }
-        return "D|" + isCompletedInt+"|"+ this.getTaskName()+"|"+ this.dueDate;
+        return "D|" + isCompletedInt + "|" + this.getTaskName()+ "|" + this.dueDate;
     }
 }
