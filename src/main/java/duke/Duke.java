@@ -16,6 +16,11 @@ public class Duke {
     private Parser parser;
     private final String fileName = "duke.txt";
 
+
+    /**
+     * executes done command.
+     * @param command user input
+     */
     public void done(String command){
         Task completedTask = taskList.markTaskAsDone(command);
         if (completedTask == null){
@@ -25,6 +30,10 @@ public class Duke {
         }
     }
 
+    /**
+     * executes delete command.
+     * @param command user input
+     */
     public void delete(String command){
         try {
             int index = Integer.parseInt(command.split(" ")[1]);
@@ -37,12 +46,21 @@ public class Duke {
         }
     }
 
+    /**
+     * executes delete command.
+     * @param command user input
+     */
     public void find(String command){
         String keyword = parser.obtainKeyword(command);
         ui.printTaskList(taskList.findTasksContaining(keyword));
 
     }
 
+    /**
+     * executes add task command.
+     * @param command user input
+     * @param mainCommand what kind of task user desires to add
+     */
     public void addTask(String command, MainCommand mainCommand){
         Task newTask = parser.obtainTask(command, mainCommand);
         if (newTask == null){
